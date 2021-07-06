@@ -18,14 +18,20 @@ chown ducc:ducc /home/ducc/.textimager
 # ssh
 service ssh start
 
+# prepare docker group
+echo "creating group for docker socket..."
+echo "group id: $TI_DOCKER_HOST_GROUP_ID"
+if [ $(getent group docker) ]; then
+	echo "docker group already exists"
+else
+	echo "creating docker grpup"
+	groupadd -g $TI_DOCKER_HOST_GROUP_ID docker
+fi
+usermod -a -G docker ducc
+
+# ducc installation
 DUCC_AGENT_INSTALLED="/home/ducc/.ducc_agent_installed"
 if [ ! -e $DUCC_AGENT_INSTALLED ]; then
-	# prepare docker group
-	echo "creating group for docker socket..."
-	echo "group id: $TI_DOCKER_HOST_GROUP_ID"
-	groupadd -g $TI_DOCKER_HOST_GROUP_ID docker
-	usermod -a -G docker ducc
-
 	# wait for ducc head to be installed...
 	DUCC_INSTALLED="/home/ducc/ducc/.ducc_installed"
 	echo "checking if ducc head is ready..."
