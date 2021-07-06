@@ -13,6 +13,8 @@ chmod 700 /root/.ssh
 chmod 600 /root/.ssh/id_rsa
 chmod 644 /root/.ssh/id_rsa.pub
 
+chown ducc:ducc /home/ducc/.textimager
+
 # ssh
 service ssh start
 

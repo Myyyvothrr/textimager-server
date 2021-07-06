@@ -16,6 +16,8 @@ chmod 644 /root/.ssh/id_rsa.pub
 # ssh
 service ssh start
 
+chown ducc:ducc /home/ducc/.textimager
+
 # ducc install
 DUCC_INSTALLED="/home/ducc/ducc/.ducc_installed"
 if [ ! -e $DUCC_INSTALLED ]; then
